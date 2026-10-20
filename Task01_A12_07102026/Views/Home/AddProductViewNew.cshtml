@@ -1,0 +1,221 @@
+﻿@model Product
+
+@{
+    ViewData["Title"] = "إضافة منتج جديد";
+}
+
+<!-- استيراد الخط وتنسيقات خفيفة محددة لنمط أمازون -->
+<style>
+    body {
+        background-color: #eaeded;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .amazon-header {
+        background-color: #232f3e;
+        color: #ffffff;
+        border-radius: 8px 8px 0 0;
+    }
+
+    .amazon-card {
+        background: #ffffff;
+        border: 1px solid #d5d9d9;
+        border-radius: 8px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    .amazon-section-title {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: #0f1111;
+        border-bottom: 2px solid #febd69;
+        padding-bottom: 6px;
+        margin-bottom: 20px;
+    }
+
+    .form-control:focus, .form-select:focus {
+        border-color: #e77600;
+        box-shadow: 0 0 0 3px rgba(228, 121, 17, 0.25);
+    }
+
+    .btn-amazon-primary {
+        background-color: #ffd814;
+        border-color: #fcd200;
+        color: #0f1111;
+        font-weight: 600;
+        border-radius: 20px;
+        transition: all 0.2s ease;
+    }
+
+        .btn-amazon-primary:hover {
+            background-color: #f7ca00;
+            border-color: #f2c200;
+            color: #0f1111;
+            box-shadow: 0 2px 5px rgba(213, 217, 217, 0.5);
+        }
+
+    .btn-amazon-secondary {
+        background-color: #ffffff;
+        border: 1px solid #d5d9d9;
+        color: #0f1111;
+        font-weight: 600;
+        border-radius: 20px;
+    }
+
+        .btn-amazon-secondary:hover {
+            background-color: #f7fafa;
+            border-color: #d5d9d9;
+        }
+
+    .form-label {
+        color: #0f1111;
+        font-size: 0.9rem;
+    }
+
+    .preview-thumbnail {
+        max-height: 120px;
+        border-radius: 6px;
+        border: 1px solid #e7e7e7;
+        object-fit: contain;
+    }
+</style>
+
+<div class="container my-5" dir="rtl">
+    <div class="row justify-content-center">
+        <div class="col-lg-9">
+
+            <!-- الهيدر العلوي بنمط أمازون -->
+            <div class="amazon-header p-4 d-flex align-items-center justify-content-between shadow-sm">
+                <div>
+                    <h4 class="mb-1 fw-bold"><i class="bi bi-box-seam me-2"></i> لوحة إضافة المنتجات</h4>
+                    <small class="text-white-50">أدخل معلومات المنتج الجديد بدقة ليتم عرضه في الكتالوج</small>
+                </div>
+                <span class="badge bg-warning text-dark px-3 py-2 fw-bold">إضافة منتج</span>
+            </div>
+
+            <form asp-action="AddProductAction" method="post" class="amazon-card p-4 p-md-5">
+
+                <!-- ملخص أخطاء التحقق -->
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger border-0 shadow-sm mb-4"></div>
+
+                <!-- القسم الأول: التفاصيل الأساسية -->
+                <div class="mb-4">
+                    <h6 class="amazon-section-title"><i class="bi bi-info-circle me-1"></i> التفاصيل الأساسية</h6>
+
+                    <div class="mb-3">
+                        <label asp-for="ProductName" class="form-label fw-bold">اسم المنتج <span class="text-danger">*</span></label>
+                        <input asp-for="ProductName" class="form-control form-control-lg" placeholder="مثال: سماعات بلوتوث لاسلكية عازلة للضوضاء" />
+                        <span asp-validation-for="ProductName" class="text-danger small"></span>
+                    </div>
+                </div>
+
+                <!-- القسم الثاني: التسعير والتصنيف -->
+                <div class="mb-4">
+                    <h6 class="amazon-section-title"><i class="bi bi-tag me-1"></i> السعر والتصنيف</h6>
+
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label asp-for="ProductPrice" class="form-label fw-bold">سعر المنتج ($) <span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light fw-bold">$</span>
+                                <input asp-for="ProductPrice" type="number" step="0.01" class="form-control" placeholder="0.00" />
+                            </div>
+                            <span asp-validation-for="ProductPrice" class="text-danger small"></span>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label asp-for="ProductCategory" class="form-label fw-bold">فئة المنتج <span class="text-danger">*</span></label>
+                            <select asp-for="ProductCategory" class="form-select">
+                                <option value="" selected disabled>-- اختر الفئة المناسبة --</option>
+                                <option value="إلكترونيات">إلكترونيات وهواتف</option>
+                                <option value="أزياء وملابس">أزياء وموضة</option>
+                                <option value="مستلزمات منزلية">مستلزمات منزلية ومطبخ</option>
+                                <option value="ساعات وإكسسوارات">ساعات وإكسسوارات</option>
+                                <option value="عناية وجمال">عناية وجمال</option>
+                                <option value="ألعاب وترفيه">ألعاب وترفيه</option>
+                            </select>
+                            <span asp-validation-for="ProductCategory" class="text-danger small"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- القسم الثالث: روابط الوسائط (صورة وفيديو) -->
+                <div class="mb-4">
+                    <h6 class="amazon-section-title"><i class="bi bi-images me-1"></i> الوسائط والعرض</h6>
+
+                    <div class="row g-3">
+                        <!-- رابط الصورة -->
+                        <div class="col-md-6">
+                            <label asp-for="ProductPhoto" class="form-label fw-bold">رابط صورة المنتج (URL)</label>
+                            <input asp-for="ProductPhoto" id="photoUrlInput" class="form-control" placeholder="https://example.com/images/product.jpg" oninput="updateImagePreview()" />
+                            <div class="form-text text-muted">أدخل رابط مباشر للصورة من خادم خارجي أو مسار محلي.</div>
+                            <span asp-validation-for="ProductPhoto" class="text-danger small"></span>
+
+                            <!-- معاينة مصغرة للصورة -->
+                            <div id="photoPreviewBox" class="mt-2 d-none">
+                                <small class="text-muted d-block mb-1">معاينة الصورة:</small>
+                                <img id="photoPreviewImg" src="" alt="معاينة الصورة" class="preview-thumbnail shadow-sm" onerror="this.src=''; document.getElementById('photoPreviewBox').classList.add('d-none');" />
+                            </div>
+                        </div>
+
+                        <!-- رابط الفيديو -->
+                        <div class="col-md-6">
+                            <label asp-for="ProductVideo" class="form-label fw-bold">رابط فيديو المنتج (URL)</label>
+                            <input asp-for="ProductVideo" class="form-control" placeholder="https://example.com/videos/product.mp4" />
+                            <div class="form-text text-muted">رابط فيديو استعراضي للمنتج (MP4 أو رابط تفاعلي).</div>
+                            <span asp-validation-for="ProductVideo" class="text-danger small"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- القسم الرابع: حالة التوفر -->
+                <div class="mb-4 p-3 bg-light rounded-3 border">
+                    <div class="form-check form-switch d-flex align-items-center justify-content-between p-0 m-0">
+                        <div>
+                            <label asp-for="ProductAvailable" class="form-check-label fw-bold text-dark m-0" style="cursor: pointer;">
+                                توفر المنتج في المخزون
+                            </label>
+                            <div class="form-text m-0">عند تفعيل هذا الخيار سيظهر المنتج للعملاء في المتجر فوراً.</div>
+                        </div>
+                        <input asp-for="ProductAvailable" class="form-check-input ms-0 fs-4" type="checkbox" role="switch" style="cursor: pointer;" checked />
+                    </div>
+                </div>
+
+                <!-- أزرار الحفظ والإلغاء -->
+                <div class="d-flex align-items-center justify-content-end gap-3 pt-3 border-top">
+                    <a asp-action="Index" class="btn btn-amazon-secondary px-4 py-2">إلغاء</a>
+                    <button type="submit" class="btn btn-amazon-primary px-5 py-2 fs-6">
+                        <i class="bi bi-check-circle-fill me-1"></i> حفظ ونشر المنتج
+                    </button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        // معاينة فورية لرابط الصورة
+        function updateImagePreview() {
+            const input = document.getElementById('photoUrlInput');
+            const previewBox = document.getElementById('photoPreviewBox');
+            const previewImg = document.getElementById('photoPreviewImg');
+
+            if (input.value && input.value.trim() !== '') {
+                previewImg.src = input.value.trim();
+                previewBox.classList.remove('d-none');
+            } else {
+                previewBox.classList.add('d-none');
+            }
+        }
+
+        // تشغيل المعاينة تلقائياً عند تحميل الصفحة إذا كان هناك رابط مخزّن
+        document.addEventListener('DOMContentLoaded', updateImagePreview);
+    </script>
+}

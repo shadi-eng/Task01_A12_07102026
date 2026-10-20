@@ -1,0 +1,27 @@
+﻿@model Product
+@{
+}
+<form asp-controller="Home" asp-action="AddAction" method="post" enctype="multipart/form-data">
+    Name: <input type="text" placeholder="اسم المنتج" asp-for="ProductName" required/>
+   <br />
+    Price: <input type="number" placeholder="السعر" asp-for="ProductPrice" required />
+   <br />
+   Category: 
+            <select asp-for="ProductCategory">
+                <option value="Toys">العاب دمى</option>
+                <option value="Games">العاب حاسوب</option>
+                <option value="Food">طعام</option>
+            </select>
+
+    <br />
+    Video: <input type="text" placeholder="فيديو" asp-for="ProductVideo" required />
+
+    <br />
+    <!--  Photo: <input type="text" placeholder="صورة" asp-for="ProductPhoto" required />-->
+
+    <br />
+    Available: <input type="checkbox" asp-for="ProductAvailable" />
+    <br />
+    <input type="file" name="thePhoto" />
+    <input type="submit" value="اضف المنتج" />
+</form>

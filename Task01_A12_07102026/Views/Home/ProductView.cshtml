@@ -1,0 +1,92 @@
+﻿@{
+    Product p1 = ViewBag.p1;
+}
+
+<div class="container mt-5">
+    <div class="card shadow-lg mx-auto" style="max-width: 700px;">
+
+        <!-- بيانات المنتج -->
+        <div class="row g-0">
+
+            <!-- صورة المنتج -->
+            <div class="col-md-5">
+                <img src="~/Photos/@p1.ProductPhoto"
+                     class="img-fluid rounded-start w-100 h-100"
+                     style="object-fit: cover;"
+                     alt="@p1.ProductName">
+            </div>
+
+            <!-- معلومات المنتج -->
+            <div class="col-md-7">
+                <div class="card-body p-4">
+
+                    <h2 class="card-title fw-bold">
+                        @p1.ProductName
+                    </h2>
+
+                    <p class="text-muted">
+                        رقم المنتج: @p1.ProductId
+                    </p>
+
+                    <hr>
+
+                    <h4 class="text-success fw-bold">
+                        ₪ @p1.ProductPrice
+                    </h4>
+
+                    <p class="mt-3">
+                        <strong>التصنيف:</strong>
+                        @p1.ProductCategory
+                    </p>
+
+                    <div class="mt-4">
+                        <a asp-controller="Product"
+                           asp-action="GetById"
+                           asp-route-ProductId="@p1.ProductId"
+                           class="btn btn-primary">
+                            عرض التفاصيل
+                        </a>
+
+                        <a asp-controller="Product"
+                           asp-action="Delete"
+                           asp-route-ProductId="@p1.ProductId"
+                           class="btn btn-danger">
+                            حذف المنتج
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <!-- الفيديو -->
+        <div class="row">
+            <div class="col-12 p-4">
+
+                <h4 class="text-center mb-3">
+                    فيديو المنتج
+                </h4>
+
+                <div class="ratio ratio-16x9">
+                    <iframe src="https://www.youtube.com/embed/@p1.ProductVideo"
+                            title="@p1.ProductName"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowfullscreen>
+                    </iframe>
+
+                    <br />
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/@p1.ProductVideo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<br />
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/@p1.ProductVideo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>

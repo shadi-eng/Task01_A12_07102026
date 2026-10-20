@@ -1,0 +1,48 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    List<Product> productsList = ViewBag.productsList;
+}
+
+<div>
+    <h1>@ViewBag.AIMSG</h1>
+    <form asp-controller="Home" asp-action="GoSearch" method="GET">
+        <input name="str" type="text" placeholder="ادخل اسم المنتج" />
+        <input type="submit" value="بحث" />
+    </form>
+</div>
+
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <strong>@ViewBag.Message</strong>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Product ID</th>
+            <th>Product Name</th>
+            <th>Price</th>
+            <th>Avilable</th>
+            <th>Delete</th>
+            <th>Details</th>
+        </tr>
+
+
+@{
+    foreach(var p1 in productsList)
+    {
+        <tr>
+                    <td>@p1.ProductId</td>
+                    <td>@p1.ProductName</td>
+                    <td>@p1.ProductPrice</td>
+                    <td>@p1.ProductAvailable</td>
+                    <td>
+                        <a class="btn btn-danger" asp-asp-controller="Home" asp-action="DeleteProduct" asp-route-ProductId="@p1.ProductId">X</a>
+                    </td>
+                    <td>
+                        <a class="btn btn-primary" asp-asp-controller="Home" asp-action="ShowProduct" asp-route-ProductId="@p1.ProductId">+</a>
+                    </td>
+        </tr>
+    }
+}
+
+</table>
