@@ -5,6 +5,9 @@ using Task01_A12_07102026.Models;
 
 namespace Task01_A12_07102026.Controllers
 {
+    /// <summary>
+    /// dfd
+    /// </summary>
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
