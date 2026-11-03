@@ -12,7 +12,7 @@
 </div>
 
 <div class="alert alert-warning alert-dismissible fade show" role="alert">
-    <strong>@ViewBag.Message</strong>
+    <strong>@ViewBag.Message</strong> @ViewBag.msg
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
 <table class="table table-striped">
@@ -24,6 +24,7 @@
             <th>Avilable</th>
             <th>Delete</th>
             <th>Details</th>
+            <th>Update</th>
         </tr>
 
 
@@ -40,6 +41,9 @@
                     </td>
                     <td>
                         <a class="btn btn-primary" asp-asp-controller="Home" asp-action="ShowProduct" asp-route-ProductId="@p1.ProductId">+</a>
+                    </td>
+                    <td>
+                        <a class="btn btn-info" asp-asp-controller="Home" asp-action="UpdateProductView" asp-route-ProductId="@p1.ProductId">?Update</a>
                     </td>
         </tr>
     }

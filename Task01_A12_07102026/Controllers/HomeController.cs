@@ -19,16 +19,33 @@ namespace Task01_A12_07102026.Controllers
 
         public async Task<IActionResult> IndexAsync()
         {
-           // GeminiService gemini = new GeminiService();
-           // string prompt = "اكتب لي حكمة واحدة قصيرة موجهة للطلاب";
-           // var result = await gemini.AskAsync(prompt);
-           //// List<Product> L1 = Product.SearchProductsByName("e");
-           // ViewBag.AIMSG = result;
+            //Test the UpdateProduct Method
+            //Product p2 = Product.GetProductById(28);
+            //p2.ProductName = "A12";
+            //p2.ProductPrice = 650;
+            //int a = Product.UpdateProduct(p2);
+
+            //List<Category> categoriesList = Category.GetAllFromDB();
+            // GeminiService gemini = new GeminiService();
+            // string prompt = "اكتب لي حكمة واحدة قصيرة موجهة للطلاب";
+            // var result = await gemini.AskAsync(prompt);
+            //// List<Product> L1 = Product.SearchProductsByName("e");
+            // ViewBag.AIMSG = result;
             List<Product> productsList = Product.GetAllProducts();
             ViewBag.productsList = productsList;
             return View();
         }
 
+
+
+        public IActionResult UpdateProductView(int ProductId)
+        {
+            Product p1 = Product.GetProductById(ProductId);
+            ViewBag.p1 = p1;
+            ViewBag.categoriesList = Category.GetAllFromDB();
+            
+            return View(p1);
+        }
 
         public IActionResult GoSearch(string str)
         {
@@ -37,8 +54,22 @@ namespace Task01_A12_07102026.Controllers
             return View("Index");
         }
 
+        public async Task<IActionResult> UpdateProductActionAsync(Product p1, IFormFile thePhoto)
+        {
+            if (thePhoto != null)
+            {
+                string newPhotoName = await UploadFile(thePhoto, "Photos");
+                p1.ProductPhoto = newPhotoName;
+            }
+            int x= Product.UpdateProduct(p1);
+            //return View();
+            return RedirectToAction("Index");
+        }
+
         public async Task<IActionResult> AddAction(Product p1,IFormFile thePhoto)
         {
+           
+
             if (thePhoto != null)
             {
                 string newPhotoName = await UploadFile(thePhoto, "Photos");
@@ -64,6 +95,37 @@ namespace Task01_A12_07102026.Controllers
             return View();
         }
 
+        public IActionResult ShowCategories()
+        {
+            List<Category> categoriesList = Category.GetAllFromDB();
+            ViewBag.categoriesList = categoriesList;
+            return View();
+        }
+
+
+        public IActionResult ShowCategory(int CategoryId)
+        {
+            Category c1 = Category.GetCategoryById(CategoryId);
+            ViewBag.c1 = c1;
+            return View("CategoryView");
+        }
+
+        public IActionResult DeleteCategory(int CategoryId)
+        {
+            int result = Category.DeleteCategory(CategoryId);
+            if (result > 0)
+            {
+                ViewBag.Message = "Category deleted successfully.";
+            }
+            else
+            {
+                ViewBag.Message = "Error deleting category.";
+            }
+            List<Category> categoriesList = Category.GetAllFromDB();
+            ViewBag.categoriesList = categoriesList;
+            return View("ShowCategories");
+        }
+
         public IActionResult AddProductViewNew()
         {
             return View();
@@ -71,6 +133,9 @@ namespace Task01_A12_07102026.Controllers
 
         public IActionResult AddProductView()
         {
+            //Get All Categories from DB and send to ViewBag
+            //List<Category> categoriesList = Category.GetAllFromDB();
+            ViewBag.categoriesList = Category.GetAllFromDB();
             return View();
         }
         public IActionResult AddProductAction(Product p)

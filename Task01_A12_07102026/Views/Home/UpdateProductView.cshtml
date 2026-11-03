@@ -1,0 +1,40 @@
+﻿@model Product
+
+@{
+    Product p1 = ViewBag.p1;
+}
+
+<h1>Update Product</h1>
+
+<form asp-controller="Home" asp-action="UpdateProductAction" method="post" enctype="multipart/form-data">
+   <input type="hidden" asp-for="ProductId" />
+    <input type="hidden" asp-for="ProductPhoto" />
+    Name: <input type="text" placeholder="اسم المنتج" asp-for="ProductName"  required />
+    <br />
+    Price: <input type="number" placeholder="السعر" asp-for="ProductPrice"  required />
+    <br />
+    Category:
+    <select asp-for="CategoryId">
+        @{
+            foreach (Category c1 in ViewBag.categoriesList)
+            {
+                <option value="@c1.CategoryId">@c1.CategoryName</option>
+            }
+        }
+
+    </select>
+
+    <br />
+    Video: <input type="text" placeholder="فيديو" asp-for="ProductVideo" required />
+
+    <br />
+    <!--  Photo: <input type="text" placeholder="صورة" asp-for="ProductPhoto" required />-->
+
+    <br />
+    Available: <input type="checkbox" asp-for="ProductAvailable" />
+    <br />
+    <img src="~/Photos/@p1.ProductPhoto" width="200"/>
+    <input type="file" name="thePhoto" />
+    <input type="submit" value="تعديل المنتج" />
+</form>
+

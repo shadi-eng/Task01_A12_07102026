@@ -1,0 +1,28 @@
+﻿@{
+    List<Category> categoriesList = ViewBag.categoriesList;
+}
+<h1>Hello Categories</h1>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Category ID</th>
+            <th>Category Name</th>
+            <th>Delete</th>
+            <th>Details</th>
+        </tr>
+    </thead>
+    @{
+        foreach(var c1 in categoriesList)
+        {
+            <tr>
+                <td>@c1.CategoryId</td>
+                <td>@c1.CategoryName</td>
+                <td>
+                    <a class="btn btn-danger" asp-asp-controller="Home" asp-action="DeleteCategory" asp-route-CategoryId="@c1.CategoryId">X</a>
+                </td>
+                <td>
+                    <a class="btn btn-primary" asp-asp-controller="Home" asp-action="ShowCategory" asp-route-CategoryId="@c1.CategoryId">+</a>
+                </td>
+            </tr>
+        }
+}

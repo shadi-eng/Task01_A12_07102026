@@ -1,5 +1,6 @@
 ﻿@model Product
 @{
+    List<Category> categoriesList = ViewBag.categoriesList;
 }
 <form asp-controller="Home" asp-action="AddAction" method="post" enctype="multipart/form-data">
     Name: <input type="text" placeholder="اسم المنتج" asp-for="ProductName" required/>
@@ -7,10 +8,14 @@
     Price: <input type="number" placeholder="السعر" asp-for="ProductPrice" required />
    <br />
    Category: 
-            <select asp-for="ProductCategory">
-                <option value="Toys">العاب دمى</option>
-                <option value="Games">العاب حاسوب</option>
-                <option value="Food">طعام</option>
+            <select asp-for="CategoryId">
+                @{
+                    foreach(Category c1 in ViewBag.categoriesList)
+                    {
+                        <option value="@c1.CategoryId">@c1.CategoryName</option>
+                     }
+                }
+                
             </select>
 
     <br />

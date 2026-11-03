@@ -1,0 +1,112 @@
+﻿
+@{
+    Category c1 = ViewBag.c1;
+}
+
+<div class="container mt-5 mb-5" dir="rtl">
+
+    <h2 class="text-primary fw-bold mb-4">
+        <i class="bi bi-tags-fill"></i>
+        تفاصيل التصنيف
+    </h2>
+
+    <div class="card shadow-lg border-0 rounded-4 overflow-hidden">
+
+        <div class="card-body p-4 p-md-5">
+
+            <div class="row g-4 align-items-center">
+
+                <!-- صورة التصنيف -->
+                <div class="col-md-5">
+                    <img src="~/Photos/@c1.CategoryPhoto"
+                         class="img-fluid rounded-4 shadow-sm w-100"
+                         style="height:350px; object-fit:cover;"
+                         alt="@c1.CategoryName" />
+                </div>
+
+                <!-- تفاصيل التصنيف -->
+                <div class="col-md-7">
+
+                    <h1 class="text-primary fw-bold mb-4">
+                        @c1.CategoryName
+                    </h1>
+
+                    <hr />
+
+                    <!-- رقم التصنيف -->
+                    <div class="row py-3 border-bottom">
+                        <div class="col-5 text-secondary fw-bold">
+                            <i class="bi bi-hash"></i>
+                            رقم التصنيف
+                        </div>
+
+                        <div class="col-7 fs-5">
+                            @c1.CategoryId
+                        </div>
+                    </div>
+
+                    <!-- اسم التصنيف -->
+                    <div class="row py-3 border-bottom">
+                        <div class="col-5 text-secondary fw-bold">
+                            <i class="bi bi-tag"></i>
+                            اسم التصنيف
+                        </div>
+
+                        <div class="col-7 fs-5">
+                            @c1.CategoryName
+                        </div>
+                    </div>
+
+                    <!-- وصف التصنيف -->
+                    <div class="row py-3">
+                        <div class="col-12 text-secondary fw-bold mb-2">
+                            <i class="bi bi-card-text"></i>
+                            وصف التصنيف
+                        </div>
+
+                        <div class="col-12 fs-5 lh-lg">
+                            @c1.CategoryDescription
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- نبذة عن التصنيف -->
+            <div class="alert alert-primary rounded-4 mt-4 p-4">
+                <h4 class="fw-bold mb-3">
+                    <i class="bi bi-info-circle-fill"></i>
+                    نبذة عن التصنيف
+                </h4>
+
+                <p class="mb-0 fs-5 lh-lg">
+                    @c1.CategoryDescription
+                </p>
+            </div>
+
+            <!-- أزرار أسفل الصفحة -->
+            <div class="d-flex justify-content-between flex-wrap gap-3 mt-4">
+
+                <a asp-controller="Category"
+                   asp-action="Index"
+                   class="btn btn-primary btn-lg rounded-3">
+                    <i class="bi bi-arrow-right"></i>
+                    العودة إلى التصنيفات
+                </a>
+
+                <a asp-controller="Category"
+                   asp-action="Edit"
+                   asp-route-id="@c1.CategoryId"
+                   class="btn btn-success btn-lg rounded-3">
+                    <i class="bi bi-pencil-square"></i>
+                    تعديل التصنيف
+                </a>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
