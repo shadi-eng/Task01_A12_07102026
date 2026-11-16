@@ -1,0 +1,130 @@
+﻿@{
+    ViewBag.Title = "تسجيل الدخول";
+}
+<div>@ViewBag.msg</div>
+<div class="container d-flex justify-content-center align-items-center"
+     style="min-height: 80vh;">
+
+    <div class="card shadow-lg border-0 rounded-4 overflow-hidden"
+         style="max-width: 850px; width: 100%;">
+
+        <div class="row g-0">
+
+            <!-- الجانب الأيسر -->
+            <div class="col-md-5 bg-primary text-white
+                        d-flex flex-column justify-content-center
+                        align-items-center p-4 text-center">
+
+                <i class="bi bi-person-circle"
+                   style="font-size: 90px;"></i>
+
+                <h2 class="fw-bold mt-3">مرحباً بعودتك!</h2>
+
+                <p class="mt-2">
+                    نسعد بوجودك مجدداً.
+                    سجّل دخولك واستمتع بخدماتنا.
+                </p>
+
+                <div class="mt-4">
+                    <i class="bi bi-shield-lock fs-1"></i>
+                    <p class="small mt-2">
+                        تجربة آمنة وسهلة
+                    </p>
+                </div>
+            </div>
+
+            <!-- نموذج تسجيل الدخول -->
+            <div class="col-md-7 p-4 p-md-5">
+
+                <h2 class="fw-bold text-center mb-2">
+                    تسجيل الدخول
+                </h2>
+
+                <p class="text-muted text-center mb-4">
+                    أدخل بيانات حسابك للمتابعة
+                </p>
+
+                <form method="post"
+                      asp-controller="Home"
+                      asp-action="LoginAction">
+
+                    <!-- البريد الإلكتروني -->
+                    <div class="mb-4">
+                        <label class="form-label fw-bold">
+                            البريد الإلكتروني
+                        </label>
+
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-text bg-light">
+                                <i class="bi bi-envelope"></i>
+                            </span>
+
+                            <input type="email"
+                                   name="ClientEmail"
+                                   class="form-control"
+                                   placeholder="example@email.com"
+                                   required />
+                        </div>
+                    </div>
+
+                    <!-- كلمة المرور -->
+                    <div class="mb-4">
+                        <label class="form-label fw-bold">
+                            كلمة المرور
+                        </label>
+
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-text bg-light">
+                                <i class="bi bi-lock"></i>
+                            </span>
+
+                            <input type="password"
+                                   name="ClientPassword"
+                                   class="form-control"
+                                   placeholder="أدخل كلمة المرور"
+                                   required />
+                        </div>
+                    </div>
+
+                    <!-- تذكرني -->
+                    <div class="d-flex justify-content-between mb-4">
+                        <div class="form-check">
+                            <input class="form-check-input"
+                                   type="checkbox"
+                                   id="remember">
+
+                            <label class="form-check-label"
+                                   for="remember">
+                                تذكرني
+                            </label>
+                        </div>
+
+                        <a href="#" class="text-decoration-none">
+                            نسيت كلمة المرور؟
+                        </a>
+                    </div>
+
+                    <!-- زر الدخول -->
+                    <button type="submit"
+                            class="btn btn-primary btn-lg w-100 rounded-3 fw-bold">
+                        <i class="bi bi-box-arrow-in-left me-2"></i>
+                        تسجيل الدخول
+                    </button>
+
+                    <hr class="my-4" />
+
+                    <p class="text-center mb-0">
+                        ليس لديك حساب؟
+                        <a asp-controller="Client"
+                           asp-action="SignUp"
+                           class="fw-bold text-decoration-none">
+                            إنشاء حساب جديد
+                        </a>
+                    </p>
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>

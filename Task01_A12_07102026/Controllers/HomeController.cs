@@ -1,6 +1,9 @@
-﻿using System.Diagnostics;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
+using System.Security.Claims;
+using System.Threading.Tasks;
 using Task01_A12_07102026.Models;
 
 namespace Task01_A12_07102026.Controllers
@@ -36,6 +39,43 @@ namespace Task01_A12_07102026.Controllers
             return View();
         }
 
+        public IActionResult LoginView()
+        {
+            return View();
+        }
+
+        public async Task<IActionResult> LoginActionAsync(string ClientEmail,string ClientPassword)
+        {
+            Client cc = Client.CheckClient(ClientEmail, ClientPassword);
+            if (cc != null) // if client login details are correct
+            {
+                var claims = new List<Claim>
+                        {
+                        new Claim(ClaimTypes.Name, cc.ClientID.ToString()),
+                        new Claim(ClaimTypes.Role,"ClientAdmin")
+                        };
+                var userIdentity = new ClaimsIdentity(claims, "SecureLogin");
+                var userPrincipal = new ClaimsPrincipal(userIdentity);
+
+                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
+                userPrincipal,
+                new AuthenticationProperties
+                {
+                    ExpiresUtc = DateTime.UtcNow.AddMinutes(5),
+                    IsPersistent = false,
+                    AllowRefresh = false
+                });
+                /////
+                return RedirectToAction("Index", "ClientAdmin");
+            }
+            else
+                            {
+                ViewBag.msg = "Email or Password is incorrect";
+                return View("LoginView");
+            }
+
+            
+        }
 
 
         public IActionResult UpdateProductView(int ProductId)
