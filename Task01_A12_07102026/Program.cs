@@ -6,7 +6,7 @@ namespace Task01_A12_07102026
     {
         public static void Main(string[] args)
         {
-
+           
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.

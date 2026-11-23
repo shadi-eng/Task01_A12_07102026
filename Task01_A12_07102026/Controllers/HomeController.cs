@@ -46,6 +46,29 @@ namespace Task01_A12_07102026.Controllers
 
         public async Task<IActionResult> LoginActionAsync(string ClientEmail,string ClientPassword)
         {
+            if(ClientEmail=="admin@admin.com" && ClientPassword=="123456")
+            {
+                var claims = new List<Claim>
+                        {
+                        new Claim(ClaimTypes.Name, "1"),
+                        new Claim(ClaimTypes.Role,"Admin")
+                        };
+                var userIdentity = new ClaimsIdentity(claims, "SecureLogin");
+                var userPrincipal = new ClaimsPrincipal(userIdentity);
+
+                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
+                userPrincipal,
+                new AuthenticationProperties
+                {
+                    ExpiresUtc = DateTime.UtcNow.AddMinutes(5),
+                    IsPersistent = false,
+                    AllowRefresh = false
+                });
+                /////
+               
+                return RedirectToAction("Index", "Admin");
+            }
+
             Client cc = Client.CheckClient(ClientEmail, ClientPassword);
             if (cc != null) // if client login details are correct
             {
